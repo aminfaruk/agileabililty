@@ -134,7 +134,7 @@ export default function About() {
                 </div>
                 {/* Floating badge */}
                 <div className="absolute -bottom-4 -left-4 bg-white rounded-2xl shadow-card border border-slate-100 px-5 py-3.5">
-                  <p className="text-2xl font-bold text-brand-700">200+</p>
+                  <p className="text-2xl font-bold text-brand-700">30+</p>
                   <p className="text-xs text-slate-500">Participants supported</p>
                 </div>
                 <div className="absolute -top-4 -right-4 bg-brand-700 rounded-2xl shadow-brand px-5 py-3.5">

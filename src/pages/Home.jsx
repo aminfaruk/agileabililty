@@ -257,7 +257,7 @@ export default function Home() {
               aria-hidden="true"
             >
               {[
-                { value: '200+', label: 'Participants', icon: Users    },
+                { value: '30+',  label: 'Participants', icon: Users    },
                 { value: '7+',   label: 'Services',     icon: Sparkles },
                 { value: '5★',   label: 'Rated',        icon: Star     },
               ].map(({ value, label, icon: Icon }, i) => (
