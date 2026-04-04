@@ -199,10 +199,10 @@ export default function Home() {
           - Right: stat cards (push-based, no absolute overlap)
         */}
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 md:pt-40 md:pb-28 w-full">
-          <div className="flex items-center gap-16">
+          <div className="max-w-3xl">
 
             {/* ── Text column ─────────────────────────────────────────────── */}
-            <div className="flex-1 min-w-0">
+            <div>
               {/* Badge */}
               <div className="animate-fade-in animation-fill-both animation-delay-100 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/90 text-xs font-semibold mb-8 backdrop-blur-sm">
                 <span className="w-1.5 h-1.5 rounded-full bg-accent-400 animate-pulse" aria-hidden="true" />
@@ -249,28 +249,6 @@ export default function Home() {
                   </span>
                 ))}
               </div>
-            </div>
-
-            {/* ── Stat cards — right column, xl+ only ─────────────────────── */}
-            <div
-              className="hidden xl:flex flex-col gap-4 shrink-0 animate-fade-in animation-fill-both animation-delay-600"
-              aria-hidden="true"
-            >
-              {[
-                { value: '30+',  label: 'Participants', icon: Users    },
-                { value: '7+',   label: 'Services',     icon: Sparkles },
-                { value: '5★',   label: 'Rated',        icon: Star     },
-              ].map(({ value, label, icon: Icon }, i) => (
-                <div
-                  key={label}
-                  className="bg-white/8 backdrop-blur-md border border-white/15 rounded-2xl px-6 py-5 text-center w-36 animate-float"
-                  style={{ animationDelay: `${i * 0.7}s` }}
-                >
-                  <Icon className="w-5 h-5 text-accent-400 mx-auto mb-2 opacity-90" />
-                  <p className="text-2xl font-bold text-white">{value}</p>
-                  <p className="text-xs text-white/50 mt-0.5">{label}</p>
-                </div>
-              ))}
             </div>
           </div>
         </div>
