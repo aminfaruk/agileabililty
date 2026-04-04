@@ -120,17 +120,16 @@ export default function About() {
               </div>
             </AnimatedSection>
 
-            {/* Placeholder image / visual */}
+            {/* Team image */}
             <AnimatedSection delay={200}>
               <div className="relative">
-                <div className="aspect-[4/3] rounded-3xl bg-gradient-to-br from-brand-100 to-brand-50 flex items-center justify-center border border-brand-100 overflow-hidden">
-                  <div className="text-center p-8">
-                    <div className="w-20 h-20 rounded-full bg-brand-200 mx-auto mb-4 flex items-center justify-center">
-                      <Users className="w-10 h-10 text-brand-700" aria-hidden="true" />
-                    </div>
-                    <p className="text-brand-600 font-medium text-sm">[Team photo placeholder]</p>
-                    <p className="text-brand-400 text-xs mt-1">Replace with an image of your team</p>
-                  </div>
+                <div className="aspect-[4/3] rounded-3xl overflow-hidden shadow-card border border-slate-100">
+                  <img
+                    src="/support.avif"
+                    alt="AgileAbility support worker with participant"
+                    className="w-full h-full object-cover brightness-[0.97] contrast-[1.02]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-950/20 to-transparent rounded-3xl" />
                 </div>
                 {/* Floating badge */}
                 <div className="absolute -bottom-4 -left-4 bg-white rounded-2xl shadow-card border border-slate-100 px-5 py-3.5">
@@ -201,15 +200,14 @@ export default function About() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <AnimatedSection>
-              {/* Placeholder image */}
-              <div className="aspect-[4/3] rounded-3xl bg-gradient-to-br from-brand-50 to-brand-100 flex items-center justify-center border border-brand-100 overflow-hidden">
-                <div className="text-center p-8">
-                  <div className="w-20 h-20 rounded-full bg-brand-100 mx-auto mb-4 flex items-center justify-center">
-                    <Heart className="w-10 h-10 text-brand-600" aria-hidden="true" />
-                  </div>
-                  <p className="text-brand-600 font-medium text-sm">[Family photo placeholder]</p>
-                  <p className="text-brand-400 text-xs mt-1">Replace with a warm, inclusive image</p>
-                </div>
+              {/* Carer image */}
+              <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-card border border-slate-100">
+                <img
+                  src="/carer.jpeg"
+                  alt="AgileAbility carer providing compassionate support"
+                  className="w-full h-full object-cover brightness-[0.97] contrast-[1.02]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-950/15 to-transparent rounded-3xl" />
               </div>
             </AnimatedSection>
 
