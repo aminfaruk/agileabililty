@@ -5,7 +5,7 @@ import {
   HandHeart, Home as HomeIcon, Car,
   MapPin, Clock, HeartHandshake, Lightbulb, GraduationCap, TrendingUp,
 } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
 
 // ─── Data ────────────────────────────────────────────────────────────────────
@@ -151,6 +151,32 @@ function FaqItem({ q, a }) {
   )
 }
 
+function LogoWatermark() {
+  const ref = useRef(null)
+  useEffect(() => {
+    const onScroll = () => {
+      if (ref.current) {
+        const y = window.scrollY
+        ref.current.style.transform = `translateY(${y * 0.12}px)`
+        ref.current.style.opacity = Math.max(0.03, 0.07 - y * 0.00008)
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none hidden sm:block" aria-hidden="true">
+      <img
+        ref={ref}
+        src="/logo.png"
+        alt=""
+        className="absolute -right-24 top-1/2 -translate-y-1/2 w-[55%] max-w-2xl opacity-[0.05] blur-[2px] select-none"
+        style={{ filter: 'grayscale(100%) brightness(0)', transition: 'opacity 0.3s' }}
+      />
+    </div>
+  )
+}
+
 function AnimatedSection({ children, className = '', delay = 0 }) {
   const [ref, isVisible] = useScrollAnimation()
   return (
@@ -173,7 +199,7 @@ export default function Home() {
     <>
       {/* ── Hero ────────────────────────────────────────────────────────────── */}
       <section
-        className="relative min-h-screen flex items-center overflow-hidden
+        className="relative min-h-screen flex items-center justify-center overflow-hidden
                    bg-gradient-to-br from-brand-950 via-brand-900 to-brand-800"
         aria-labelledby="hero-heading"
       >
@@ -181,8 +207,7 @@ export default function Home() {
         <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
           <div className="absolute -top-32 -right-32 w-[600px] h-[600px] rounded-full bg-brand-600/10 blur-3xl" />
           <div className="absolute bottom-0 -left-48 w-[500px] h-[500px] rounded-full bg-brand-700/20 blur-3xl" />
-          <div className="absolute top-1/2 right-1/4 w-[400px] h-[400px] rounded-full bg-accent-600/5 blur-3xl" />
-          {/* Dot grid */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-accent-600/5 blur-3xl" />
           <svg className="absolute inset-0 w-full h-full opacity-[0.04]" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <pattern id="dots" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
@@ -193,63 +218,52 @@ export default function Home() {
           </svg>
         </div>
 
-        {/*
-          Two-column layout on xl+:
-          - Left: headline, CTA, trust indicators
-          - Right: stat cards (push-based, no absolute overlap)
-        */}
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 md:pt-40 md:pb-28 w-full">
-          <div className="max-w-3xl">
+        <div className="relative w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 pb-24 md:pt-44 md:pb-32 text-center">
+          {/* Badge */}
+          <div className="animate-fade-in animation-fill-both animation-delay-100 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/90 text-xs font-semibold mb-8 backdrop-blur-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-accent-400 animate-pulse" aria-hidden="true" />
+            NDIS Support Services · Australia
+          </div>
 
-            {/* ── Text column ─────────────────────────────────────────────── */}
-            <div>
-              {/* Badge */}
-              <div className="animate-fade-in animation-fill-both animation-delay-100 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/90 text-xs font-semibold mb-8 backdrop-blur-sm">
-                <span className="w-1.5 h-1.5 rounded-full bg-accent-400 animate-pulse" aria-hidden="true" />
-                NDIS Support Services · Australia
-              </div>
+          {/* Headline */}
+          <h1
+            id="hero-heading"
+            className="animate-fade-up animation-fill-both animation-delay-200 text-5xl sm:text-6xl lg:text-7xl font-extrabold text-white leading-[1.08] tracking-tight mb-7"
+          >
+            Supporting your journey{' '}
+            <span className="text-accent-400">to greater independence.</span>
+          </h1>
 
-              {/* Headline */}
-              <h1
-                id="hero-heading"
-                className="animate-fade-up animation-fill-both animation-delay-200 text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-[1.1] tracking-tight mb-6"
-              >
-                Supporting your journey{' '}
-                <span className="text-accent-400">to greater independence.</span>
-              </h1>
+          {/* Subheading */}
+          <p className="animate-fade-up animation-fill-both animation-delay-300 text-lg sm:text-xl text-white/65 leading-relaxed max-w-2xl mx-auto mb-10">
+            Flexible, person-centred NDIS support services tailored to your goals,
+            your needs, and your life. Whether you're just starting out or looking
+            for a new provider, we're here to help.
+          </p>
 
-              {/* Subheading */}
-              <p className="animate-fade-up animation-fill-both animation-delay-300 text-lg sm:text-xl text-white/70 leading-relaxed max-w-xl mb-10">
-                We provide flexible, person-centred NDIS support services tailored
-                to your goals, your needs, and your life. Whether you're just starting
-                out or looking for a new provider. We're here to help.
-              </p>
+          {/* CTAs */}
+          <div className="animate-fade-up animation-fill-both animation-delay-400 flex flex-wrap justify-center gap-4 mb-14">
+            <Link to="/contact" className="btn-primary text-base px-8 py-4 shadow-accent">
+              Get Started
+              <ArrowRight className="w-4 h-4" aria-hidden="true" />
+            </Link>
+            <Link to="/services" className="btn-ghost text-base px-8 py-4">
+              Our Services
+            </Link>
+          </div>
 
-              {/* CTAs */}
-              <div className="animate-fade-up animation-fill-both animation-delay-400 flex flex-wrap gap-4 mb-12">
-                <Link to="/contact" className="btn-primary text-base px-7 py-4 shadow-accent">
-                  Get Started
-                  <ArrowRight className="w-4 h-4" aria-hidden="true" />
-                </Link>
-                <Link to="/services" className="btn-ghost text-base px-7 py-4">
-                  Our Services
-                </Link>
-              </div>
-
-              {/* Trust indicators */}
-              <div className="animate-fade-up animation-fill-both animation-delay-500 flex flex-wrap items-center gap-x-6 gap-y-2">
-                {[
-                  'Free initial consultation',
-                  'No lock-in contracts',
-                  'Flexible support options',
-                ].map(item => (
-                  <span key={item} className="flex items-center gap-2 text-white/65 text-sm">
-                    <CheckCircle2 className="w-4 h-4 text-accent-400 shrink-0" aria-hidden="true" />
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
+          {/* Trust indicators */}
+          <div className="animate-fade-up animation-fill-both animation-delay-500 flex flex-wrap justify-center items-center gap-x-8 gap-y-3">
+            {[
+              'Free initial consultation',
+              'No lock-in contracts',
+              'Flexible support options',
+            ].map(item => (
+              <span key={item} className="flex items-center gap-2 text-white/55 text-sm">
+                <CheckCircle2 className="w-4 h-4 text-accent-400 shrink-0" aria-hidden="true" />
+                {item}
+              </span>
+            ))}
           </div>
         </div>
 
@@ -274,8 +288,9 @@ export default function Home() {
       </section>
 
       {/* ── Why Choose Us ───────────────────────────────────────────────────── */}
-      <section className="py-20 md:py-28 bg-slate-50" aria-labelledby="why-heading">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative py-20 md:py-28 bg-slate-50 overflow-hidden" aria-labelledby="why-heading">
+        <LogoWatermark />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-14">
             <span className="badge mb-4">Why AgileAbility</span>
             <h2 id="why-heading" className="section-heading mb-4">

@@ -11,29 +11,13 @@ const NAV_LINKS = [
 ]
 
 export default function Navbar() {
-  const [isOpen,   setIsOpen]   = useState(false)
-  const [scrolled, setScrolled] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
   const { pathname } = useLocation()
 
   useEffect(() => { setIsOpen(false) }, [pathname])
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 16)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
-
-  const isHome  = pathname === '/'
-  const onDark  = !scrolled && isHome   // transparent hero → dark background
-
   return (
-    <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300
-        ${scrolled || !isHome
-          ? 'bg-white/95 backdrop-blur-md shadow-soft border-b border-slate-100'
-          : 'bg-transparent'
-        }`}
-    >
+    <header className="fixed top-0 inset-x-0 z-50 bg-white border-b border-slate-100 shadow-soft">
       <nav
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
         aria-label="Main navigation"
@@ -50,24 +34,16 @@ export default function Navbar() {
               <img
                 src="/logo.png"
                 alt="AgileAbility"
-                className={`h-14 md:h-18 w-auto object-contain transition-all duration-300
-                  ${onDark ? 'brightness-0 invert' : ''}`}
+                className="h-14 md:h-18 w-auto object-contain"
               />
             </Link>
 
-            {/* Divider */}
-            <div
-              className={`hidden sm:block w-px h-12 rounded-full transition-colors duration-300
-                ${onDark ? 'bg-white/20' : 'bg-slate-200'}`}
-              aria-hidden="true"
-            />
+            <div className="hidden sm:block w-px h-12 rounded-full bg-slate-200" aria-hidden="true" />
 
-            {/* NDIS Registered Provider stamp */}
             <img
               src="/ndisregistered.png"
               alt="NDIS Registered Provider"
-              className={`hidden sm:block h-12 md:h-16 w-auto object-contain transition-opacity duration-300
-                ${onDark ? 'opacity-90' : 'opacity-100'}`}
+              className="hidden sm:block h-12 md:h-16 w-auto object-contain"
             />
           </div>
 
@@ -82,9 +58,7 @@ export default function Navbar() {
                   `px-3.5 py-2 rounded-lg text-sm font-medium transition-all duration-200
                   ${isActive
                     ? 'bg-brand-700/10 text-brand-700'
-                    : onDark
-                      ? 'text-white/80 hover:text-white hover:bg-white/10'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                   }`
                 }
               >
@@ -97,8 +71,7 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-3">
             <a
               href="tel:+61403977416"
-              className={`flex items-center gap-1.5 text-sm font-medium transition-colors duration-200
-                ${onDark ? 'text-white/80 hover:text-white' : 'text-slate-600 hover:text-brand-700'}`}
+              className="flex items-center gap-1.5 text-sm font-medium text-slate-600 hover:text-brand-700 transition-colors duration-200"
             >
               <Phone className="w-3.5 h-3.5" aria-hidden="true" />
               <span>0403 977 416</span>
@@ -111,10 +84,7 @@ export default function Navbar() {
           {/* ── Mobile hamburger ─────────────────────────────────────── */}
           <button
             onClick={() => setIsOpen(v => !v)}
-            className={`md:hidden p-2 rounded-lg transition-colors duration-200
-              ${onDark
-                ? 'text-white hover:bg-white/10'
-                : 'text-slate-700 hover:bg-slate-100'}`}
+            className="md:hidden p-2 rounded-lg text-slate-700 hover:bg-slate-100 transition-colors duration-200"
             aria-expanded={isOpen}
             aria-controls="mobile-menu"
             aria-label={isOpen ? 'Close menu' : 'Open menu'}
