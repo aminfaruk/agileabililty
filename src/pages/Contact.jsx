@@ -116,10 +116,11 @@ export default function Contact() {
 
       const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       })
       const data = await res.json()
+      console.log('Web3Forms response:', data)
       if (!data.success) throw new Error(data?.message || 'Submission failed')
 
       setSubmitted(true)
