@@ -104,23 +104,23 @@ export default function Contact() {
     setIsSubmitting(true)
     try {
       const payload = {
-        _subject: `New Enquiry from ${form.firstName} ${form.lastName} — AgileAbility Website`,
-        _replyto: form.email,
-        'First Name': form.firstName,
-        'Last Name': form.lastName,
-        'Email': form.email,
-        'Phone': form.phone || 'Not provided',
-        'Enquiry Type': form.enquiryType,
-        'Message': form.message,
+        access_key: 'd792ad46-c13f-4cc3-ace4-012d813d5345',
+        subject: `New Enquiry from ${form.firstName} ${form.lastName} — AgileAbility Website`,
+        replyto: form.email,
+        name: `${form.firstName} ${form.lastName}`,
+        email: form.email,
+        phone: form.phone || 'Not provided',
+        enquiry_type: form.enquiryType,
+        message: form.message,
       }
 
-      const res = await fetch('https://formspree.io/f/YOUR_FORMSPREE_ID', { // replace with your Formspree endpoint ID
+      const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       })
       const data = await res.json()
-      if (!res.ok) throw new Error(data?.errors?.[0]?.message || 'Submission failed')
+      if (!data.success) throw new Error(data?.message || 'Submission failed')
 
       setSubmitted(true)
       setForm(INITIAL_FORM)
